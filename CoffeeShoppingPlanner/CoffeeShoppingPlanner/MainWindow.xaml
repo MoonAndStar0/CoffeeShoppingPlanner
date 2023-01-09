@@ -1,0 +1,24 @@
+﻿<Window x:Class="CoffeeShoppingPlanner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeShoppingPlanner"
+        mc:Ignorable="d"
+        Title="CoffeeShoppingPlanner" Background = "Gray" Height = "450" Width = "1000" SizeToContent = "WidthAndHeight">
+    <Grid>
+        <DataGrid x:Name = "CoffeeList" HorizontalAlignment = "Center" VerticalAlignment = "Top" Margin = "0,10,0,0" Height = "200" Width = "400">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "100"/>
+                <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "100"/>
+                <DataGridTextColumn Header="Anzahl" Binding = "{Binding count}"  Width = "100"/>
+                <DataGridTextColumn Header="Datum" Binding = "{Binding date}"  Width = "100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" HorizontalAlignment = "Center" Margin = "0,343,0,0" VerticalAlignment = "Top" Width="120" Height="9"/>
+        <TextBox x:Name = "NameTB" HorizontalAlignment = "Center" Margin = "0,233,0,0" TextWrapping = "Wrap" VerticalAlignment = "Top" Width = "140" Height="20"/>
+        <TextBox x:Name = "PaidTB" HorizontalAlignment = "Center" Margin = "0,258,0,0" TextWrapping = "Wrap" VerticalAlignment = "Top" Width = "140" Height="20"/>
+        <TextBox x:Name = "CountTB" HorizontalAlignment = "Center" Margin = "0,283,0,0" TextWrapping = "Wrap" VerticalAlignment = "Top" Width = "140" Height="20"/>
+        <TextBox x:Name = "DateTB" HorizontalAlignment = "Center" Margin = "0,308,0,0" TextWrapping = "Wrap" VerticalAlignment = "Top" Width = "140" Height="18"/>
+    </Grid>
+</Window>
