@@ -24,7 +24,7 @@ namespace CoffeeShoppingPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
-        string fileName = "data.txt";
+        string fileName = @"data.txt";
 
         List<string> names;
         List<string> paid;
@@ -33,6 +33,11 @@ namespace CoffeeShoppingPlanner
 
         public MainWindow()
         {
+            if (!File.Exists(fileName))
+            {
+                File.WriteAllText(fileName, " \n \n \n ");
+            }
+
             InitializeComponent();
 
             string[] fileContents = File.ReadAllLines(@fileName);
@@ -76,7 +81,7 @@ namespace CoffeeShoppingPlanner
             newEntry.count = CountTB.Text;
             newEntry.date = DateTB.Text;
 
-            File.WriteAllText(@fileName, String.Join(";", names) + "\n" + String.Join(";", paid) + "\n" + String.Join(";", count) + "\n" + String.Join(";", date));
+            File.WriteAllText(fileName, String.Join(";", names).Replace(" ;", "") + "\n" + String.Join(";", paid).Replace(" ;", "") + "\n" + String.Join(";", count).Replace(" ;", "") + "\n" + String.Join(";", date).Replace(" ;", ""));
 
             CoffeeList.Items.Add(newEntry);
         }
