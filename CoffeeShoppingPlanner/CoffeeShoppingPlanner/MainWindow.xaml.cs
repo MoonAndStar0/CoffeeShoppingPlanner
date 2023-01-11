@@ -50,13 +50,16 @@ namespace CoffeeShoppingPlanner
             //Loads the list
             for(int i = 0; i < names.Count; i++)
             {
-                Coffee loadEntry = new Coffee();
-                loadEntry.name = names[i];
-                loadEntry.paid = paid[i];
-                loadEntry.count = count[i];
-                loadEntry.date = date[i];
+                if (names[0] != " " || paid[0] != " " || count[0] != " " || date[0] != " ")
+                {
+                    Coffee loadEntry = new Coffee();
+                    loadEntry.name = names[i];
+                    loadEntry.paid = paid[i];
+                    loadEntry.count = count[i];
+                    loadEntry.date = date[i];
 
-                CoffeeList.Items.Add(loadEntry);
+                    CoffeeList.Items.Add(loadEntry);
+                }
             }
         }
 
