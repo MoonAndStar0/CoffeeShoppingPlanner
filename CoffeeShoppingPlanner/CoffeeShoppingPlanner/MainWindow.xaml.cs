@@ -41,6 +41,18 @@ namespace CoffeeShoppingPlanner
             paid = fileContents[1].Split(';').ToList();
             count = fileContents[2].Split(';').ToList();
             date = fileContents[3].Split(';').ToList();
+
+            //Loads the list
+            for(int i = 0; i < names.Count; i++)
+            {
+                Coffee loadEntry = new Coffee();
+                loadEntry.name = names[i];
+                loadEntry.paid = paid[i];
+                loadEntry.count = count[i];
+                loadEntry.date = date[i];
+
+                CoffeeList.Items.Add(loadEntry);
+            }
         }
 
         public class Coffee
