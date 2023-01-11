@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 
 namespace CoffeeShoppingPlanner
 {
@@ -23,9 +24,23 @@ namespace CoffeeShoppingPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
+        string fileName = "data.txt";
+
+        List<string> names;
+        List<string> paid;
+        List<string> count;
+        List<string> date;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            string[] fileContents = File.ReadAllLines(@fileName);
+
+            names = fileContents[0].Split(';').ToList();
+            paid = fileContents[1].Split(';').ToList();
+            count = fileContents[2].Split(';').ToList();
+            date = fileContents[3].Split(';').ToList();
         }
 
         public class Coffee
@@ -38,14 +53,6 @@ namespace CoffeeShoppingPlanner
     
         private void Button_Clicked(object sender, RoutedEventArgs e)
         {
-            string fileName = "data.txt";
-            string[] fileContents = File.ReadAllLines(@fileName);
-
-            List<string> names = fileContents[0].Split(';').ToList();
-            List<string> paid = fileContents[1].Split(';').ToList();
-            List<string> count = fileContents[2].Split(';').ToList();
-            List<string> date = fileContents[3].Split(';').ToList();
-
             names.Add(NameTB.Text);
             paid.Add(PaidTB.Text);
             count.Add(CountTB.Text);
