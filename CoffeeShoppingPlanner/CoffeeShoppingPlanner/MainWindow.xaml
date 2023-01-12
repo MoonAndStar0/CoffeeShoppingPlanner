@@ -5,28 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeShoppingPlanner"
         mc:Ignorable="d"
-        Title="CoffeeShoppingPlanner" Background = "Gray" Height = "400" Width = "500" SizeToContent = "WidthAndHeight">
+        Title="Who has to pay for Coffee next?" Background = "LightGray" 
+        Height = "500" Width = "600" MinHeight="500" MinWidth="600">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "25*"/>
-                <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "25*"/>
-                <DataGridTextColumn Header="Anzahl" Binding = "{Binding count}"  Width = "25*"/>
-                <DataGridTextColumn Header="Datum" Binding = "{Binding date}"  Width = "25*"/>
+                <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
+                <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
+                <DataGridTextColumn Header="Anzahl" Binding = "{Binding count}"  Width = "*"/>
+                <DataGridTextColumn Header="Datum" Binding = "{Binding date}"  Width = "*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name = "NameTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1"/>
-        <TextBox x:Name = "PaidTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2"/>
-        <TextBox x:Name = "CountTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3"/>
-        <TextBox x:Name = "DateTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="4"/>
+        <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1"/>
+        <TextBox x:Name = "NameTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1"/>
+        <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2"/>
+        <TextBox x:Name = "PaidTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2"/>
+        <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3"/>
+        <TextBox x:Name = "CountTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3"/>
+        <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4"/>
+        <TextBox x:Name = "DateTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="4"/>
 
         <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" Margin="150,5,150,5" Grid.Row="5" FontWeight="Bold"/>
     </Grid>
