@@ -48,9 +48,9 @@ namespace CoffeeShoppingPlanner
             date = fileContents[3].Split(';').ToList();
 
             //Loads the list
-            for(int i = 0; i < names.Count; i++)
+            if (names[0] != " " && paid[0] != " " && count[0] != " " && date[0] != " ")
             {
-                if (names[0] != " " || paid[0] != " " || count[0] != " " || date[0] != " ")
+                for (int i = 0; i < names.Count; i++)
                 {
                     Coffee loadEntry = new Coffee();
                     loadEntry.name = names[i];
@@ -70,14 +70,19 @@ namespace CoffeeShoppingPlanner
             public string count { get; set; }
             public string date { get; set; }
         }
-    
+
         private void Button_Clicked(object sender, RoutedEventArgs e)
         {
-            names.Add(NameTB.Text);
-            paid.Add(PaidTB.Text);
-            count.Add(CountTB.Text);
-            date.Add(DateTB.Text);
+            if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PaidTB.Text) || string.IsNullOrWhiteSpace(CountTB.Text) || string.IsNullOrWhiteSpace(DateTB.Text))
+            {
+                return;
+            }
 
+            names.Add(NameTB.Text.Trim());
+            paid.Add(PaidTB.Text.Trim());
+            count.Add(CountTB.Text.Trim());
+            date.Add(DateTB.Text.Trim());
+            
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
             newEntry.paid = PaidTB.Text;
