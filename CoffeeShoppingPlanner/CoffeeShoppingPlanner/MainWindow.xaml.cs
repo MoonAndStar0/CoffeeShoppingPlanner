@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace CoffeeShoppingPlanner
 {
@@ -93,6 +94,23 @@ namespace CoffeeShoppingPlanner
             
             CoffeeList.Items.Add(newEntry);
         }
+
+        private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+        // allow all digits 0 to 9 plus the dot and the minus sign
+        private static readonly Regex rgx = new Regex("[0-9.]+");
+        private static bool IsTextAllowed(string text)
+        {
+            return rgx.IsMatch(text);
+        }
+        private void CountTB_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string str = CountTB.Text;
+            int len = CountTB.Text.Length;
+        }
+
         // Deletes the datagrid after closing the app(for testing)
         ~MainWindow() 
         { 
