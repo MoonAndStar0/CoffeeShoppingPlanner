@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeShoppingPlanner"
         mc:Ignorable="d"
-        Title="Who has to pay for Coffee next?" Background = "LightGray" 
+        Title="Who has to pay for Coffee next?" Background = "#6f4e37" 
         Height = "500" Width = "600" MinHeight="500" MinWidth="600">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden">
+        <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" Background="#b18363">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                 <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
@@ -24,15 +24,19 @@
                 <DataGridTextColumn Header="Datum" Binding = "{Binding date}"  Width = "*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1"/>
-        <TextBox x:Name = "NameTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1"/>
-        <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2"/>
-        <TextBox x:Name = "PaidTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2"/>
-        <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3"/>
-        <TextBox x:Name = "CountTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3"/>
-        <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4"/>
-        <TextBox x:Name = "DateTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="4"/>
 
-        <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" Margin="150,5,150,5" Grid.Row="5" FontWeight="Bold"/>
+        <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1" Foreground="White"/>
+        <TextBox x:Name = "NameTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#b18363"/>
+
+        <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2" Foreground="White"/>
+        <TextBox x:Name = "PaidTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#b18363"/>
+
+        <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3" Foreground="White"/>
+        <TextBox x:Name = "CountTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3" Background="#b18363"/>
+        
+        <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
+        <DatePicker x:Name = "DateTB" FontSize="20" Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#b18363"/>
+
+        <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" Margin="150,5,150,5" Grid.Row="5" FontWeight="Bold" Background="#b18363"/>
     </Grid>
 </Window>
