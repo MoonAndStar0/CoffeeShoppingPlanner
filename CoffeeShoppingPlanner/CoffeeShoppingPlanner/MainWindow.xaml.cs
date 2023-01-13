@@ -54,7 +54,7 @@ namespace CoffeeShoppingPlanner
                 {
                     Coffee loadEntry = new Coffee();
                     loadEntry.name = names[i];
-                    loadEntry.paid = paid[i];
+                    loadEntry.paid = paid[i] + "€";
                     loadEntry.count = count[i];
                     loadEntry.date = date[i];
 
@@ -78,10 +78,10 @@ namespace CoffeeShoppingPlanner
                 return;
             }
 
-            names?.Add(NameTB.Text.Trim());
-            paid?.Add(PaidTB.Text.Trim());
-            count?.Add(CountTB.Text.Trim());
-            date?.Add(DateTB.Text.Trim());
+            names.Add(NameTB.Text.Trim());
+            paid.Add(PaidTB.Text.Trim());
+            count.Add(CountTB.Text.Trim());
+            date.Add(DateTB.Text.Trim());
             
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
@@ -114,7 +114,7 @@ namespace CoffeeShoppingPlanner
         // Deletes the datagrid after closing the app(for testing)
         ~MainWindow() 
         { 
-            File.Delete(fileName);
+            //File.Delete(fileName);
         }
     }
 }
