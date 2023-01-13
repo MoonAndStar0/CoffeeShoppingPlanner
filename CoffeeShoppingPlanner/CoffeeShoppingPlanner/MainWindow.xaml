@@ -29,12 +29,13 @@
         <TextBox x:Name = "NameTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#b18363"/>
 
         <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2" Foreground="White"/>
-        <TextBox x:Name = "PaidTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#b18363"/>
+        <TextBox x:Name = "PaidTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#b18363"
+        PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
+        <TextBlock Text="€" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="2" Foreground="White"/>
 
         <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3" Foreground="White"/>
         <TextBox x:Name = "CountTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3" Background="#b18363" 
         PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
-        <TextBlock Text="€" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="3" Foreground="White"/>
 
         <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
         <DatePicker x:Name = "DateTB" FontSize="20" Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#b18363"/>
