@@ -26,16 +26,16 @@ namespace CoffeeShoppingPlanner
     {
         string fileName = @"data.txt";
 
-        List<string> names;
-        List<string> paid;
-        List<string> count;
-        List<string> date;
+        List<string> names = new List<string>();
+        List<string> paid = new List<string>();
+        List<string> count = new List<string>();
+        List<string> date = new List<string>();
 
         public MainWindow()
         {
             if (!File.Exists(fileName))
             {
-                File.WriteAllText(fileName, " \n \n \n ");
+                return;
             }
 
             InitializeComponent();
@@ -48,7 +48,6 @@ namespace CoffeeShoppingPlanner
             date = fileContents[3].Split(';').ToList();
 
             //Loads the list
-            if (names[0] != " " && paid[0] != " " && count[0] != " " && date[0] != " ")
             {
                 for (int i = 0; i < names.Count; i++)
                 {
@@ -78,10 +77,10 @@ namespace CoffeeShoppingPlanner
                 return;
             }
 
-            names.Add(NameTB.Text.Trim());
-            paid.Add(PaidTB.Text.Trim());
-            count.Add(CountTB.Text.Trim());
-            date.Add(DateTB.Text.Trim());
+            names?.Add(NameTB.Text.Trim());
+            paid?.Add(PaidTB.Text.Trim());
+            count?.Add(CountTB.Text.Trim());
+            date?.Add(DateTB.Text.Trim());
             
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
@@ -89,9 +88,15 @@ namespace CoffeeShoppingPlanner
             newEntry.count = CountTB.Text;
             newEntry.date = DateTB.Text;
 
-            File.WriteAllText(fileName, String.Join(";", names).Replace(" ;", "") + "\n" + String.Join(";", paid).Replace(" ;", "") + "\n" + String.Join(";", count).Replace(" ;", "") + "\n" + String.Join(";", date).Replace(" ;", ""));
-
+            var nl = Environment.NewLine;
+            File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
+            
             CoffeeList.Items.Add(newEntry);
+        }
+        // Deletes the datagrid after closing the app(for testing)
+        ~MainWindow() 
+        { 
+            File.Delete(fileName);
         }
     }
 }
