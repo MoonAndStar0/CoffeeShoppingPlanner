@@ -85,7 +85,7 @@ namespace CoffeeShoppingPlanner
             
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
-            newEntry.paid = PaidTB.Text;
+            newEntry.paid = PaidTB.Text + "€";
             newEntry.count = CountTB.Text;
             newEntry.date = DateTB.Text;
 
