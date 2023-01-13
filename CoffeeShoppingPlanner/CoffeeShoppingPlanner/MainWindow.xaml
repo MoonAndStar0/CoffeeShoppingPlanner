@@ -40,6 +40,6 @@
         <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
         <DatePicker x:Name = "DateTB" FontSize="20" Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#b18363"/>
 
-        <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" Margin="150,5,150,5" Grid.Row="5" FontWeight="Bold" Background="#b18363"/>
+        <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" Margin="150,5,150,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#b18363"/>
     </Grid>
 </Window>
