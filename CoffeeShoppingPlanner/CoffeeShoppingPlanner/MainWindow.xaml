@@ -13,7 +13,7 @@
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" Background="#6f4e37">
+        <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                 <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
@@ -32,30 +32,30 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
-
-            <Image x:Name="coffeeImage"/>
+            
+            <Image x:Name="coffeeImage" Margin="25"/>
 
             <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1" Foreground="White"/>
-            <TextBox x:Name = "NameTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#6f4e37"/>
+            <TextBox x:Name = "NameTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#794d2f"/>
 
             <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2" Foreground="White"/>
-            <TextBox x:Name = "PaidTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#6f4e37"
+            <TextBox x:Name = "PaidTB" FontSize="20" BorderThickness="0" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#794d2f"
             PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
             <TextBlock Text="€" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="2" Foreground="White"/>
 
             <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3" Foreground="White"/>
-            <TextBox x:Name = "CountTB" FontSize="20" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3" Background="#6f4e37" 
+            <TextBox x:Name = "CountTB" FontSize="20" BorderThickness="0" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3" Background="#794d2f" 
             PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
 
             <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
-            <DatePicker x:Name = "DateTB" FontSize="20" Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#6f4e37"/>
+            <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#794d2f"/>
 
-            <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" Margin="100,5,100,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#6f4e37" Foreground="White"/>
+            <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="100,5,100,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
 
             <TextBlock Text="Die Person die Als nächstes kaufen muss:" Grid.Row="6" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBlock x:Name="nextBuyerName" Text="KEVIN" Grid.Row="7" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
         </Grid>
-        <DataGrid Grid.Column="2" x:Name = "CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" Background="#6f4e37">
+        <DataGrid Grid.Column="2" x:Name = "CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                 <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
