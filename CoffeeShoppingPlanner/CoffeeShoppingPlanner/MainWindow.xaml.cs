@@ -75,6 +75,7 @@ namespace CoffeeShoppingPlanner
         {
             if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PaidTB.Text) || string.IsNullOrWhiteSpace(CountTB.Text) || string.IsNullOrWhiteSpace(DateTB.Text))
             {
+                MessageBox.Show("Bitte füllen Sie alle Felder aus", "Fehlermeldung");
                 return;
             }
 
