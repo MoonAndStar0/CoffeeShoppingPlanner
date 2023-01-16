@@ -34,6 +34,7 @@ namespace CoffeeShoppingPlanner
 
         public MainWindow()
         {
+            //If the file does not exist MainWindow() will be skipped and the file be created once the user puts a entry on the list
             if (!File.Exists(fileName))
             {
                 return;
@@ -41,6 +42,7 @@ namespace CoffeeShoppingPlanner
 
             InitializeComponent();
 
+            //Splits the contents of data.txt into lists so they can be used as needed
             string[] fileContents = File.ReadAllLines(@fileName);
 
             names = fileContents[0].Split(';').ToList();
@@ -61,6 +63,10 @@ namespace CoffeeShoppingPlanner
                     CoffeeList.Items.Add(loadEntry);
                 }
             }
+
+            //Loads an image for the program
+            var uri = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeImage.png");
+            coffeeImage.Source = new BitmapImage(uri);
         }
 
         public class Coffee
@@ -73,6 +79,7 @@ namespace CoffeeShoppingPlanner
 
         private void Button_Clicked(object sender, RoutedEventArgs e)
         {
+            //Error messages based on the situation
             if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PaidTB.Text) || string.IsNullOrWhiteSpace(CountTB.Text) || string.IsNullOrWhiteSpace(DateTB.Text))
             {
                 MessageBox.Show("Bitte füllen Sie alle Felder aus", "Fehlermeldung");
@@ -94,6 +101,7 @@ namespace CoffeeShoppingPlanner
                 return;
             }
 
+            //If nothing is wrong, the entries will be added to the lists and the Datagrid and added to the file
             names.Add(NameTB.Text.Trim());
             paid.Add(PaidTB.Text.Trim());
             count.Add(CountTB.Text.Trim());
@@ -111,6 +119,7 @@ namespace CoffeeShoppingPlanner
             CoffeeList.Items.Add(newEntry);
         }
 
+        // This Codes makes it so that you can only input numbers into Anzahl and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
