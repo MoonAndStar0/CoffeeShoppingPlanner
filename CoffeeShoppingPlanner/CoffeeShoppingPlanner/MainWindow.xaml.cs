@@ -78,21 +78,36 @@ namespace CoffeeShoppingPlanner
                 MessageBox.Show("Bitte füllen Sie alle Felder aus", "Fehlermeldung");
                 return;
             }
+            else if (NameTB.Text.Contains(";"))
+            {
+                MessageBox.Show("\";\" nicht erlaubt", "Fehlermeldung");
+                return;
+            }
+            else if (CountTB.Text.Contains(",") || CountTB.Text.Contains("."))
+            {
+                MessageBox.Show("\"Anzahl\" darf kein \",\" oder \".\" enthalten", "Fehlermeldung");
+                return;
+            }
+            else if (PaidTB.Text.StartsWith(",") || PaidTB.Text.StartsWith(".") || PaidTB.Text.EndsWith(",") || PaidTB.Text.EndsWith("."))
+            {
+                MessageBox.Show("\"Bezahlt\" kann nicht mit \",\" oder \".\" anfangen oder enden", "Fehlermeldung");
+                return;
+            }
 
             names.Add(NameTB.Text.Trim());
             paid.Add(PaidTB.Text.Trim());
             count.Add(CountTB.Text.Trim());
             date.Add(DateTB.Text.Trim());
-            
+
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
-            newEntry.paid = PaidTB.Text + "€";
+            newEntry.paid = PaidTB.Text.Replace(",", ".") + "€";
             newEntry.count = CountTB.Text;
             newEntry.date = DateTB.Text;
 
             var nl = Environment.NewLine;
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
-            
+
             CoffeeList.Items.Add(newEntry);
         }
 
@@ -100,8 +115,8 @@ namespace CoffeeShoppingPlanner
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        // allow all digits 0 to 9 plus the dot and the minus sign
-        private static readonly Regex rgx = new Regex("[0-9.]+");
+        // allow all digits 0 to 9 plus the dot the comma and the minus sign
+        private static readonly Regex rgx = new Regex("[0-9.,]+");
         private static bool IsTextAllowed(string text)
         {
             return rgx.IsMatch(text);
@@ -113,8 +128,8 @@ namespace CoffeeShoppingPlanner
         }
 
         // Deletes the datagrid after closing the app(for testing)
-        ~MainWindow() 
-        { 
+        ~MainWindow()
+        {
             //File.Delete(fileName);
         }
     }
