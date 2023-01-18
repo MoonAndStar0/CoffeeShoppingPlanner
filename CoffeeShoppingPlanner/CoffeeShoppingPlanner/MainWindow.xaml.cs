@@ -25,6 +25,51 @@ namespace CoffeeShoppingPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
+        public void LoadCoffeeListSum(List<string> names, List<string> paid, List<string> count, List<string> date)
+        {
+            CoffeeListSum.Items.Clear();
+
+            List<string> namesSum = new List<string>();
+            List<float> paidSum = new List<float>();
+            List<int> countSum = new List<int>();
+            List<string> dateSum = new List<string>();
+
+            bool isNew;
+
+            for(int i = 0; i < names.Count; i++)
+            {
+                isNew = true;
+
+                for(int h = 0; h < namesSum.Count; h++)
+                {
+                    if (namesSum[h] == names[i]) 
+                    {
+                        isNew = false;
+                        paidSum[h] += float.Parse(paid[i]);
+                        countSum[h] += Int32.Parse(count[i]);
+                    }
+                }
+
+                if(isNew == true)
+                {
+                    namesSum.Add(names[i]);
+                    paidSum.Add(float.Parse(paid[i]));
+                    countSum.Add(Int32.Parse(count[i]));
+                }
+            }
+
+            for (int i = 0; i < namesSum.Count; i++)
+            {
+                Coffee loadEntry = new Coffee();
+                loadEntry.name = namesSum[i];
+                loadEntry.paid = paidSum[i].ToString() + "€";
+                loadEntry.count = countSum[i].ToString();
+                loadEntry.date = date[i];
+
+                CoffeeListSum.Items.Add(loadEntry);
+            }
+        }
+
         string fileName = @"data.txt";
 
         List<string> names = new List<string>();
@@ -34,13 +79,21 @@ namespace CoffeeShoppingPlanner
 
         public MainWindow()
         {
+            InitializeComponent();
+
+            //Loads an image for the program and the icon
+            var uri = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeImage.png");
+            var icon = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeIcon.ico");
+            coffeeImage.Source = new BitmapImage(uri);
+            Icon = new BitmapImage(icon);
+
             //If the file does not exist MainWindow() will be skipped and the file be created once the user puts a entry on the list
+            //You can use File.ReadAllText(fileName).ToString() == "" for when the file is completly empty, but exists, to not crash the program
+            //idk how useful that will be tho.
             if (!File.Exists(fileName))
             {
                 return;
             }
-
-            InitializeComponent();
 
             //Splits the contents of data.txt into lists so they can be used as needed
             string[] fileContents = File.ReadAllLines(@fileName);
@@ -51,22 +104,18 @@ namespace CoffeeShoppingPlanner
             date = fileContents[3].Split(';').ToList();
 
             //Loads the list
+            for (int i = 0; i < names.Count; i++)
             {
-                for (int i = 0; i < names.Count; i++)
-                {
-                    Coffee loadEntry = new Coffee();
-                    loadEntry.name = names[i];
-                    loadEntry.paid = paid[i] + "€";
-                    loadEntry.count = count[i];
-                    loadEntry.date = date[i];
+                Coffee loadEntry = new Coffee();
+                loadEntry.name = names[i];
+                loadEntry.paid = paid[i] + "€";
+                loadEntry.count = count[i];
+                loadEntry.date = date[i];
 
-                    CoffeeList.Items.Add(loadEntry);
-                }
+                CoffeeList.Items.Add(loadEntry);
             }
 
-            //Loads an image for the program
-            var uri = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeImage.png");
-            coffeeImage.Source = new BitmapImage(uri);
+            LoadCoffeeListSum(names, paid, count, date);
         }
 
         public class Coffee
@@ -117,9 +166,11 @@ namespace CoffeeShoppingPlanner
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
 
             CoffeeList.Items.Add(newEntry);
+
+            LoadCoffeeListSum(names, paid, count, date);
         }
 
-        // This Codes makes it so that you can only input numbers into Anzahl and Count
+        // This Codes makes it so that you can only input numbers into Paid and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
