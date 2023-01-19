@@ -25,48 +25,55 @@ namespace CoffeeShoppingPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Turns date into a number that can be compared to other date values to see which is higher to see the newest date
+        public int getDateValue(string date)
+        {
+            string[] dateArray = date.Split('/');
+            int[] dateInt = Array.ConvertAll(dateArray, s => int.Parse(s));
+
+            int returnsum = 0;
+
+            returnsum += dateInt[0] * 30; //Month
+            returnsum += dateInt[1] * 1; //Day
+            returnsum += dateInt[2] * 365; //year
+
+            return returnsum;
+        }
+
+        //A method used to load the second list, where all the names are combined into one entry
         public void LoadCoffeeListSum(List<string> names, List<string> paid, List<string> count, List<string> date)
         {
             CoffeeListSum.Items.Clear();
 
-            List<string> namesSum = new List<string>();
-            List<float> paidSum = new List<float>();
-            List<int> countSum = new List<int>();
-            List<string> dateSum = new List<string>();
-
-            bool isNew;
+            Dictionary<string, Coffee> sumDictionary = new Dictionary<string, Coffee>();
 
             for(int i = 0; i < names.Count; i++)
             {
-                isNew = true;
-
-                for(int h = 0; h < namesSum.Count; h++)
+                if (sumDictionary.ContainsKey(names[i]))
                 {
-                    if (namesSum[h] == names[i]) 
+                    sumDictionary[names[i]].paid = (Int32.Parse(sumDictionary[names[i]].paid) + Int32.Parse(paid[i])).ToString();
+                    sumDictionary[names[i]].count = (Int32.Parse(sumDictionary[names[i]].count) + Int32.Parse(count[i])).ToString();
+
+                    if (getDateValue(sumDictionary[names[i]].date) < getDateValue(date[i]))
                     {
-                        isNew = false;
-                        paidSum[h] += float.Parse(paid[i]);
-                        countSum[h] += Int32.Parse(count[i]);
+                        sumDictionary[names[i]].date = date[i];
                     }
                 }
-
-                if(isNew == true)
+                else
                 {
-                    namesSum.Add(names[i]);
-                    paidSum.Add(float.Parse(paid[i]));
-                    countSum.Add(Int32.Parse(count[i]));
+                    Coffee newEntry = new Coffee();
+                    newEntry.name = names[i];
+                    newEntry.paid = paid[i];
+                    newEntry.count = count[i];
+                    newEntry.date = date[i];
+
+                    sumDictionary[names[i]] = newEntry;
                 }
             }
 
-            for (int i = 0; i < namesSum.Count; i++)
+            foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
-                Coffee loadEntry = new Coffee();
-                loadEntry.name = namesSum[i];
-                loadEntry.paid = paidSum[i].ToString() + "€";
-                loadEntry.count = countSum[i].ToString();
-                loadEntry.date = date[i];
-
-                CoffeeListSum.Items.Add(loadEntry);
+                CoffeeListSum.Items.Add(coffee.Value);
             }
         }
 
