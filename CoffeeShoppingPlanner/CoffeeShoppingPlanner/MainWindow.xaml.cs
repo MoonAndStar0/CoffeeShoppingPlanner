@@ -81,11 +81,13 @@ namespace CoffeeShoppingPlanner
         {
             InitializeComponent();
 
+            /*
             //Loads an image for the program and the icon
             var uri = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeImage.png");
             var icon = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeIcon.ico");
             coffeeImage.Source = new BitmapImage(uri);
             Icon = new BitmapImage(icon);
+            */
 
             //If the file does not exist MainWindow() will be skipped and the file be created once the user puts a entry on the list
             //You can use File.ReadAllText(fileName).ToString() == "" for when the file is completly empty, but exists, to not crash the program

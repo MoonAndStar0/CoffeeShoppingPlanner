@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:CoffeeShoppingPlanner"
         mc:Ignorable="d"
         Title="Who has to pay for Coffee next?" Background = "#613512" 
-        Height = "800" Width = "1200" MinHeight="800" MinWidth="1200">
+        Height = "800" Width = "1200" MinHeight="800" MinWidth="1200"
+        Icon="images/coffeeIcon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
@@ -33,7 +34,7 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
             
-            <Image x:Name="coffeeImage" Margin="25"/>
+            <Image x:Name="coffeeImage" Margin="25" Source="images/coffeeImage.png"/>
 
             <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1" Foreground="White"/>
             <TextBox x:Name = "NameTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#794d2f"/>
