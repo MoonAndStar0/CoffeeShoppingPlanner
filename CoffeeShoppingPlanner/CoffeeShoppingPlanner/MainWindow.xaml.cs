@@ -190,7 +190,18 @@ namespace CoffeeShoppingPlanner
             LoadCoffeeListSum(names, paid, count, date);
             CalculateNextBuyer();
         }
-
+        /*
+        private void DeleteButton_Clicked(object sender, EventArgs e)
+        {
+            var selectedItem = CoffeeList.SelectedItem;
+              
+            if (selectedItem != null)
+            {
+                CoffeeList.Items.Remove(selectedItem);
+            }
+            LoadCoffeeListSum(names, paid, count, date);
+        }
+        */
         // This Codes makes it so that you can only input numbers into Paid and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

@@ -51,7 +51,8 @@
             <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
             <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#794d2f"/>
 
-            <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="100,5,100,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
+            <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="100,5,250,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
+            <!--<Button x:Name = "DeleteButton" Click = "DeleteButton_Clicked" Content = "Löschen" BorderThickness="0" Margin="250,5,100,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>-->
 
             <TextBlock Text="Die Person die Als nächstes kaufen muss:" Grid.Row="6" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
             <TextBlock x:Name="nextBuyerName" Text="NO ENTRY" Grid.Row="7" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
