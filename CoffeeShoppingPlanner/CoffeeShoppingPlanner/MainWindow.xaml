@@ -37,16 +37,16 @@
             <Image x:Name="coffeeImage" Margin="25" Source="images/coffeeImage.png"/>
 
             <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1" Foreground="White"/>
-            <TextBox x:Name = "NameTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#794d2f"/>
+            <TextBox x:Name = "NameTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#794d2f" Foreground="White"/>
 
             <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2" Foreground="White"/>
             <TextBox x:Name = "PaidTB" FontSize="20" BorderThickness="0" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#794d2f"
-            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
+            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged" Foreground="White"/>
             <TextBlock Text="€" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="2" Foreground="White"/>
 
             <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3" Foreground="White"/>
             <TextBox x:Name = "CountTB" FontSize="20" BorderThickness="0" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3" Background="#794d2f" 
-            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
+            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged" Foreground="White"/>
 
             <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
             <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#794d2f"/>
@@ -54,7 +54,7 @@
             <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="100,5,100,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
 
             <TextBlock Text="Die Person die Als nächstes kaufen muss:" Grid.Row="6" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBlock x:Name="nextBuyerName" Text="KEVIN" Grid.Row="7" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBlock x:Name="nextBuyerName" Text="NO ENTRY" Grid.Row="7" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
         </Grid>
         <DataGrid Grid.Column="2" x:Name = "CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
             <DataGrid.Columns>

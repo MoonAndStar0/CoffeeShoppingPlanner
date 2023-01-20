@@ -25,23 +25,39 @@ namespace CoffeeShoppingPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Turns date into a number that can be compared to other date values to see which is higher to see the newest date
-        public int getDateValue(string date)
+        public void CalculateNextBuyer()
         {
-            string[] dateArray = date.Split('/');
-            int[] dateInt = Array.ConvertAll(dateArray, s => int.Parse(s));
+            Dictionary<string, Coffee> sumDictionary = LoadCoffeeListSum(names, paid, count, date);
+            float lowestPaid = float.MaxValue;
+            string lowestPaidName = string.Empty;
+            DateTime lowestPaidDate = DateTime.MinValue;
 
-            int returnsum = 0;
+            foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
+            {
+                if(lowestPaid > float.Parse(coffee.Value.paid))
+                {
+                    lowestPaid = float.Parse(coffee.Value.paid);
+                    lowestPaidName = coffee.Key;
+                    lowestPaidDate = DateTime.ParseExact(coffee.Value.date, "dd.MM.yyyy", null);
+                }
+                else if(lowestPaid == float.Parse(coffee.Value.paid))
+                {
+                    if (lowestPaidDate > DateTime.ParseExact(coffee.Value.date, "dd.MM.yyyy", null))
+                    {
+                        lowestPaid = float.Parse(coffee.Value.paid);
+                        lowestPaidName = coffee.Key;
+                        lowestPaidDate = DateTime.ParseExact(coffee.Value.date, "dd.MM.yyyy", null);
+                    }
 
-            returnsum += dateInt[0] * 30; //Month
-            returnsum += dateInt[1] * 1; //Day
-            returnsum += dateInt[2] * 365; //year
+                }
+            }
 
-            return returnsum;
+            nextBuyerName.Text = lowestPaidName;
         }
 
         //A method used to load the second list, where all the names are combined into one entry
-        public void LoadCoffeeListSum(List<string> names, List<string> paid, List<string> count, List<string> date)
+        //Also returns the Dictionary so you can work with it
+        public Dictionary<string, Coffee> LoadCoffeeListSum(List<string> names, List<string> paid, List<string> count, List<string> date)
         {
             CoffeeListSum.Items.Clear();
 
@@ -51,10 +67,10 @@ namespace CoffeeShoppingPlanner
             {
                 if (sumDictionary.ContainsKey(names[i]))
                 {
-                    sumDictionary[names[i]].paid = (Int32.Parse(sumDictionary[names[i]].paid) + Int32.Parse(paid[i])).ToString();
-                    sumDictionary[names[i]].count = (Int32.Parse(sumDictionary[names[i]].count) + Int32.Parse(count[i])).ToString();
+                    sumDictionary[names[i]].paid = (float.Parse(sumDictionary[names[i]].paid) + float.Parse(paid[i])).ToString();
+                    sumDictionary[names[i]].count = (int.Parse(sumDictionary[names[i]].count) + int.Parse(count[i])).ToString();
 
-                    if (getDateValue(sumDictionary[names[i]].date) < getDateValue(date[i]))
+                    if (DateTime.ParseExact(sumDictionary[names[i]].date, "dd.MM.yyyy", null) < DateTime.ParseExact(date[i], "dd.MM.yyyy", null))
                     {
                         sumDictionary[names[i]].date = date[i];
                     }
@@ -75,6 +91,8 @@ namespace CoffeeShoppingPlanner
             {
                 CoffeeListSum.Items.Add(coffee.Value);
             }
+
+            return sumDictionary;
         }
 
         string fileName = @"data.txt";
@@ -87,14 +105,6 @@ namespace CoffeeShoppingPlanner
         public MainWindow()
         {
             InitializeComponent();
-
-            /*
-            //Loads an image for the program and the icon
-            var uri = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeImage.png");
-            var icon = new Uri("pack://application:,,,/CoffeeShoppingPlanner;component/images/coffeeIcon.ico");
-            coffeeImage.Source = new BitmapImage(uri);
-            Icon = new BitmapImage(icon);
-            */
 
             //If the file does not exist MainWindow() will be skipped and the file be created once the user puts a entry on the list
             //You can use File.ReadAllText(fileName).ToString() == "" for when the file is completly empty, but exists, to not crash the program
@@ -125,6 +135,7 @@ namespace CoffeeShoppingPlanner
             }
 
             LoadCoffeeListSum(names, paid, count, date);
+            CalculateNextBuyer();
         }
 
         public class Coffee
@@ -163,7 +174,7 @@ namespace CoffeeShoppingPlanner
             names.Add(NameTB.Text.Trim());
             paid.Add(PaidTB.Text.Trim());
             count.Add(CountTB.Text.Trim());
-            date.Add(DateTB.Text.Trim());
+            date.Add(DateTB.SelectedDate.Value.ToShortDateString());
 
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
@@ -177,6 +188,7 @@ namespace CoffeeShoppingPlanner
             CoffeeList.Items.Add(newEntry);
 
             LoadCoffeeListSum(names, paid, count, date);
+            CalculateNextBuyer();
         }
 
         // This Codes makes it so that you can only input numbers into Paid and Count
