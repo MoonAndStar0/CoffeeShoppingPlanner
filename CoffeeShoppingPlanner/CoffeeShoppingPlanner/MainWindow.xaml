@@ -4,10 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeShoppingPlanner"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         mc:Ignorable="d"
         Title="Who has to pay for Coffee next?" Background = "#613512" 
         Height = "800" Width = "1200" MinHeight="800" MinWidth="1200"
         Icon="images/coffeeIcon.ico">
+    <Window.Resources>
+        
+        <Style TargetType="{x:Type DatePicker}">
+            <Style.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#794d2f"/>
+        </Style>
+        
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="#794d2f"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
@@ -33,31 +61,33 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
-            
+
             <Image x:Name="coffeeImage" Margin="25" Source="images/coffeeImage.png"/>
 
-            <TextBlock Text="Name:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="1" Foreground="White"/>
-            <TextBox x:Name = "NameTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" Background="#794d2f" Foreground="White"/>
+            <TextBlock Text="Name:" Margin="10,5,100,5" Grid.Row="1"/>
+            <TextBox x:Name = "NameTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" />
 
-            <TextBlock Text="Bezahlt:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="2" Foreground="White"/>
-            <TextBox x:Name = "PaidTB" FontSize="20" BorderThickness="0" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2" Background="#794d2f"
-            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged" Foreground="White"/>
-            <TextBlock Text="€" FontSize="25" FontWeight="Bold" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="2" Foreground="White"/>
+            <TextBlock Text="Bezahlt:" Margin="10,5,100,5" Grid.Row="2"/>
+            <TextBox x:Name = "PaidTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2"
+            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
+            <TextBlock Text="€" FontSize="25" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="2"/>
 
-            <TextBlock Text="Anzahl:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="3" Foreground="White"/>
-            <TextBox x:Name = "CountTB" FontSize="20" BorderThickness="0" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3" Background="#794d2f" 
-            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged" Foreground="White"/>
+            <TextBlock Text="Anzahl:" Margin="10,5,100,5" Grid.Row="3"/>
+            <TextBox x:Name = "CountTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3"
+            PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged"/>
 
-            <TextBlock Text="Datum:" FontSize="20" FontWeight="Bold" Margin="10,5,100,5" Grid.Row="4" Foreground="White"/>
-            <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False" Background="#794d2f"/>
+            <TextBlock Text="Datum:" Margin="10,5,100,5" Grid.Row="4"/>
+            <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False"/>
 
-            <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="100,5,250,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
-            <!--<Button x:Name = "DeleteButton" Click = "DeleteButton_Clicked" Content = "Löschen" BorderThickness="0" Margin="250,5,100,5" Grid.Row="5" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>-->
+            <UniformGrid Grid.Row="5" Columns="2" Margin="100 5">
+                <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="0,0,10,0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
+                <Button x:Name = "DeleteButton" Click = "DeleteButton_Clicked" Content = "Löschen" BorderThickness="0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
+            </UniformGrid>
 
-            <TextBlock Text="Die Person die Als nächstes kaufen muss:" Grid.Row="6" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-            <TextBlock x:Name="nextBuyerName" Text="NO ENTRY" Grid.Row="7" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
+            <TextBlock Text="Die Person die als nächstes kaufen muss:" Grid.Row="6" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock x:Name="nextBuyerName" Text="Kein Eintrag" Grid.Row="7" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Grid>
-        <DataGrid Grid.Column="2" x:Name = "CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
+        <DataGrid Grid.Column="2" x:Name="CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                 <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>

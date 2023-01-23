@@ -17,6 +17,7 @@ using System.Xml.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CoffeeShoppingPlanner
 {
@@ -89,7 +90,13 @@ namespace CoffeeShoppingPlanner
 
             foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
-                CoffeeListSum.Items.Add(coffee.Value);
+                Coffee loadEntry = new Coffee();
+                loadEntry.name = coffee.Value.name;
+                loadEntry.paid = coffee.Value.paid + "€";
+                loadEntry.count = coffee.Value.count;
+                loadEntry.date = coffee.Value.date;
+
+                CoffeeListSum.Items.Add(loadEntry);
             }
 
             return sumDictionary;
@@ -101,6 +108,8 @@ namespace CoffeeShoppingPlanner
         List<string> paid = new List<string>();
         List<string> count = new List<string>();
         List<string> date = new List<string>();
+
+        string nl = Environment.NewLine;
 
         public MainWindow()
         {
@@ -182,7 +191,6 @@ namespace CoffeeShoppingPlanner
             newEntry.count = CountTB.Text;
             newEntry.date = DateTB.Text;
 
-            var nl = Environment.NewLine;
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
 
             CoffeeList.Items.Add(newEntry);
@@ -190,18 +198,30 @@ namespace CoffeeShoppingPlanner
             LoadCoffeeListSum(names, paid, count, date);
             CalculateNextBuyer();
         }
-        /*
+        
         private void DeleteButton_Clicked(object sender, EventArgs e)
         {
             var selectedItem = CoffeeList.SelectedItem;
-              
-            if (selectedItem != null)
+            if (selectedItem == null)
             {
-                CoffeeList.Items.Remove(selectedItem);
+                return;
             }
+
+            int indexOfSelectedItem = CoffeeList.Items.IndexOf(CoffeeList.SelectedItem);
+
+            CoffeeList.Items.Remove(selectedItem);
+
+            names.RemoveAt(indexOfSelectedItem);
+            paid.RemoveAt(indexOfSelectedItem);
+            count.RemoveAt(indexOfSelectedItem);
+            date.RemoveAt(indexOfSelectedItem);
+
+            File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
+
             LoadCoffeeListSum(names, paid, count, date);
+            CalculateNextBuyer();
         }
-        */
+        
         // This Codes makes it so that you can only input numbers into Paid and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
