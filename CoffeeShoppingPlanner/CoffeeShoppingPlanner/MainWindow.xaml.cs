@@ -181,13 +181,13 @@ namespace CoffeeShoppingPlanner
 
             //If nothing is wrong, the entries will be added to the lists and the Datagrid and added to the file
             names.Add(NameTB.Text.Trim());
-            paid.Add(PaidTB.Text.Trim());
+            paid.Add(PaidTB.Text.Trim().Replace(".", ","));
             count.Add(CountTB.Text.Trim());
             date.Add(DateTB.SelectedDate.Value.ToShortDateString());
 
             Coffee newEntry = new Coffee();
             newEntry.name = NameTB.Text;
-            newEntry.paid = PaidTB.Text.Replace(",", ".") + "€";
+            newEntry.paid = PaidTB.Text.Replace(".", ",") + "€";
             newEntry.count = CountTB.Text;
             newEntry.date = DateTB.Text;
 
