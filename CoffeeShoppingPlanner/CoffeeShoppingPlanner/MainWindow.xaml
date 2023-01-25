@@ -38,11 +38,11 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/> 
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
+        <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f" IsReadOnly="true" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                 <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
@@ -87,7 +87,7 @@
             <TextBlock Text="Die Person die als nächstes kaufen muss:" Grid.Row="6" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock x:Name="nextBuyerName" Text="Kein Eintrag" Grid.Row="7" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Grid>
-        <DataGrid Grid.Column="2" x:Name="CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f">
+        <DataGrid Grid.Column="2" x:Name="CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f" IsReadOnly="true">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                 <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>

@@ -238,11 +238,5 @@ namespace CoffeeShoppingPlanner
             string str = CountTB.Text;
             int len = CountTB.Text.Length;
         }
-
-        // Deletes the datagrid after closing the app(for testing)
-        ~MainWindow()
-        {
-            //File.Delete(fileName);
-        }
     }
 }
