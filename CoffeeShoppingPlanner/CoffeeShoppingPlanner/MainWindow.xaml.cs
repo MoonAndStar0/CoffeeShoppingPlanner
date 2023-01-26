@@ -26,6 +26,18 @@ namespace CoffeeShoppingPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
+        public void WriteEntry(string name, string paid, string count, string date, DataGrid list)
+        {
+            Coffee newEntry = new Coffee();
+
+            newEntry.name = name;
+            newEntry.paid = paid;
+            newEntry.count = count;
+            newEntry.date = date;
+
+            list.Items.Add(newEntry);
+        }
+
         public void CalculateNextBuyer()
         {
             Dictionary<string, Coffee> sumDictionary = LoadCoffeeSumList(names, paid, count, date);
@@ -90,13 +102,7 @@ namespace CoffeeShoppingPlanner
 
             foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
-                Coffee loadEntry = new Coffee();
-                loadEntry.name = coffee.Value.name;
-                loadEntry.paid = coffee.Value.paid + "€";
-                loadEntry.count = coffee.Value.count;
-                loadEntry.date = coffee.Value.date;
-
-                CoffeeListSum.Items.Add(loadEntry);
+                WriteEntry(coffee.Value.name, coffee.Value.paid + "€", coffee.Value.count, coffee.Value.date, CoffeeListSum);
             }
 
             return sumDictionary;
@@ -136,13 +142,7 @@ namespace CoffeeShoppingPlanner
                 //Loads the list
                 for (int i = 0; i < names.Count; i++)
                 {
-                    Coffee loadEntry = new Coffee();
-                    loadEntry.name = names[i];
-                    loadEntry.paid = paid[i] + "€";
-                    loadEntry.count = count[i];
-                    loadEntry.date = date[i];
-
-                    CoffeeList.Items.Add(loadEntry);
+                    WriteEntry(names[i], paid[i] + "€", count[i], date[i], CoffeeList);
                 }
             }
             catch
@@ -175,15 +175,9 @@ namespace CoffeeShoppingPlanner
             count.Add(CountTB.Text.Trim());
             date.Add(DateTB.SelectedDate.Value.ToShortDateString());
 
-            Coffee newEntry = new Coffee();
-            newEntry.name = NameTB.Text;
-            newEntry.paid = PaidTB.Text.Replace(".", ",") + "€";
-            newEntry.count = CountTB.Text;
-            newEntry.date = DateTB.Text;
+            WriteEntry(NameTB.Text, PaidTB.Text.Replace(".", ",") + "€", CountTB.Text, DateTB.Text, CoffeeList);
 
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
-
-            CoffeeList.Items.Add(newEntry);
 
             LoadCoffeeSumList(names, paid, count, date);
             CalculateNextBuyer();
@@ -194,6 +188,7 @@ namespace CoffeeShoppingPlanner
             var selectedItem = CoffeeList.SelectedItem;
             if (selectedItem == null)
             {
+                MessageBox.Show("Kein Eintrag ausgewählt", "Fehlermeldung");
                 return;
             }
 
@@ -214,12 +209,15 @@ namespace CoffeeShoppingPlanner
         
         private void EditButton_Clicked(object sender, EventArgs e)
         {
-            if (ErrorMessages())
+            var selectedItem = CoffeeList.SelectedItem;
+
+            if (selectedItem == null)
             {
+                MessageBox.Show("Kein Eintrag ausgewählt", "Fehlermeldung");
                 return;
             }
-            var selectedItem = CoffeeList.SelectedItem;
-            if (selectedItem == null)
+
+            if (ErrorMessages())
             {
                 return;
             }
@@ -234,14 +232,9 @@ namespace CoffeeShoppingPlanner
             
             for (int i = 0; i < names.Count; i++)
             {
-                Coffee loadEntry = new Coffee();
-                loadEntry.name = names[i];
-                loadEntry.paid = paid[i] + "€";
-                loadEntry.count = count[i];
-                loadEntry.date = date[i];
-
-                CoffeeList.Items.Add(loadEntry);
+                WriteEntry(names[i], paid[i] + "€", count[i], date[i], CoffeeList);
             }
+
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
 
             LoadCoffeeSumList(names, paid, count, date);
@@ -268,6 +261,24 @@ namespace CoffeeShoppingPlanner
         {
             string str = PaidTB.Text;
             int len = PaidTB.Text.Length;
+        }
+
+        public void CoffeeListDoubleClick(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = CoffeeList.SelectedItem;
+
+            if(selectedItem == null) 
+            {
+                MessageBox.Show("Nothing is selected SOMEHOW??????????");
+                return;
+            }
+
+            int indexOfSelectedItem = CoffeeList.Items.IndexOf(selectedItem);
+
+            NameTB.Text = names[indexOfSelectedItem];
+            PaidTB.Text = paid[indexOfSelectedItem];
+            CountTB.Text = count[indexOfSelectedItem];
+            DateTB.Text = date[indexOfSelectedItem];
         }
 
         private bool ErrorMessages()

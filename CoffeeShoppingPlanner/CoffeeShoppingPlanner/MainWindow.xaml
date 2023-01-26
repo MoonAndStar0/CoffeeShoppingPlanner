@@ -47,6 +47,13 @@
         <DockPanel >
         <TextBlock Text="Alle Einträge:" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" FontSize="30"/>
             <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f" IsReadOnly="true" SelectionMode="Single">
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <EventSetter Event= "MouseDoubleClick" Handler="CoffeeListDoubleClick"/>
+                    </Style>
+                </DataGrid.CellStyle>
+                
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
                     <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
