@@ -222,6 +222,33 @@ namespace CoffeeShoppingPlanner
             CalculateNextBuyer();
         }
         
+        private void EditButton_Clicked(object sender, EventArgs e)
+        {
+            var selectedItem = CoffeeList.SelectedItem;
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            int indexOfSelectedItem = CoffeeList.Items.IndexOf(CoffeeList.SelectedItem);
+
+            names[indexOfSelectedItem] = NameTB.Text;
+            paid[indexOfSelectedItem] = PaidTB.Text;
+            count[indexOfSelectedItem] = CountTB.Text;
+            date[indexOfSelectedItem] = DateTB.Text;
+            CoffeeList.Items.Clear();
+            
+            for (int i = 0; i < names.Count; i++)
+            {
+                Coffee loadEntry = new Coffee();
+                loadEntry.name = names[i];
+                loadEntry.paid = paid[i] + "€";
+                loadEntry.count = count[i];
+                loadEntry.date = date[i];
+
+                CoffeeList.Items.Add(loadEntry);
+            }
+            
         // This Codes makes it so that you can only input numbers into Paid and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
