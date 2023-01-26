@@ -79,9 +79,10 @@
             <TextBlock Text="Datum:" Margin="10,5,100,5" Grid.Row="4"/>
             <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False"/>
 
-            <UniformGrid Grid.Row="5" Columns="2" Margin="100 5">
+            <UniformGrid Grid.Row="5" Columns="3" Margin="50 5">
                 <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" Margin="0,0,10,0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
                 <Button x:Name = "DeleteButton" Click = "DeleteButton_Clicked" Content = "Löschen" BorderThickness="0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
+                <Button x:Name = "EditButton" Click = "EditButton_Clicked" Content = "Bearbeiten" BorderThickness="0" Margin="10,0,0,0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
             </UniformGrid>
 
             <TextBlock Text="Die Person die als nächstes kaufen muss:" Grid.Row="6" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
