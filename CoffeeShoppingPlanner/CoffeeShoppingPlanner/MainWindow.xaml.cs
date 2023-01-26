@@ -157,28 +157,11 @@ namespace CoffeeShoppingPlanner
 
         private void Button_Clicked(object sender, RoutedEventArgs e)
         {
-            //Error messages based on the situation
-            if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PaidTB.Text) || string.IsNullOrWhiteSpace(CountTB.Text) || string.IsNullOrWhiteSpace(DateTB.Text))
+            if (ErrorMessages())
             {
-                MessageBox.Show("Bitte füllen Sie alle Felder aus", "Fehlermeldung");
                 return;
             }
-            else if (NameTB.Text.Contains(";"))
-            {
-                MessageBox.Show("\";\" nicht erlaubt", "Fehlermeldung");
-                return;
-            }
-            else if (CountTB.Text.Contains(",") || CountTB.Text.Contains("."))
-            {
-                MessageBox.Show("\"Anzahl\" darf kein \",\" oder \".\" enthalten", "Fehlermeldung");
-                return;
-            }
-            else if (PaidTB.Text.StartsWith(",") || PaidTB.Text.StartsWith(".") || PaidTB.Text.EndsWith(",") || PaidTB.Text.EndsWith("."))
-            {
-                MessageBox.Show("\"Bezahlt\" kann nicht mit \",\" oder \".\" anfangen oder enden", "Fehlermeldung");
-                return;
-            }
-
+            
             //If nothing is wrong, the entries will be added to the lists and the Datagrid and added to the file
             names.Add(NameTB.Text.Trim());
             paid.Add(PaidTB.Text.Trim().Replace(".", ","));
@@ -224,6 +207,10 @@ namespace CoffeeShoppingPlanner
         
         private void EditButton_Clicked(object sender, EventArgs e)
         {
+            if (ErrorMessages())
+            {
+                return;
+            }
             var selectedItem = CoffeeList.SelectedItem;
             if (selectedItem == null)
             {
@@ -248,7 +235,11 @@ namespace CoffeeShoppingPlanner
 
                 CoffeeList.Items.Add(loadEntry);
             }
-            
+            File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
+
+            LoadCoffeeListSum(names, paid, count, date);
+            CalculateNextBuyer();
+        }
         // This Codes makes it so that you can only input numbers into Paid and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -264,6 +255,34 @@ namespace CoffeeShoppingPlanner
         {
             string str = CountTB.Text;
             int len = CountTB.Text.Length;
+        }
+        private bool ErrorMessages()
+        {
+            //Error messages based on the situation
+            if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(PaidTB.Text) || string.IsNullOrWhiteSpace(CountTB.Text) || string.IsNullOrWhiteSpace(DateTB.Text))
+            {
+                MessageBox.Show("Bitte füllen Sie alle Felder aus", "Fehlermeldung");
+                return true;
+            }
+            else if (NameTB.Text.Contains(";"))
+            {
+                MessageBox.Show("\";\" nicht erlaubt", "Fehlermeldung");
+                return true;
+            }
+            else if (CountTB.Text.Contains(",") || CountTB.Text.Contains("."))
+            {
+                MessageBox.Show("\"Anzahl\" darf kein \",\" oder \".\" enthalten", "Fehlermeldung");
+                return true;
+            }
+            else if (PaidTB.Text.StartsWith(",") || PaidTB.Text.StartsWith(".") || PaidTB.Text.EndsWith(",") || PaidTB.Text.EndsWith("."))
+            {
+                MessageBox.Show("\"Bezahlt\" kann nicht mit \",\" oder \".\" anfangen oder enden", "Fehlermeldung");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
