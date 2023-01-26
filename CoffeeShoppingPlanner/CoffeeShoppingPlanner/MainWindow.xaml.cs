@@ -28,7 +28,7 @@ namespace CoffeeShoppingPlanner
     {
         public void CalculateNextBuyer()
         {
-            Dictionary<string, Coffee> sumDictionary = LoadCoffeeListSum(names, paid, count, date);
+            Dictionary<string, Coffee> sumDictionary = LoadCoffeeSumList(names, paid, count, date);
             float lowestPaid = float.MaxValue;
             string lowestPaidName = string.Empty;
             DateTime lowestPaidDate = DateTime.MinValue;
@@ -58,7 +58,7 @@ namespace CoffeeShoppingPlanner
 
         //A method used to load the second list, where all the names are combined into one entry
         //Also returns the Dictionary so you can work with it
-        public Dictionary<string, Coffee> LoadCoffeeListSum(List<string> names, List<string> paid, List<string> count, List<string> date)
+        public Dictionary<string, Coffee> LoadCoffeeSumList(List<string> names, List<string> paid, List<string> count, List<string> date)
         {
             CoffeeListSum.Items.Clear();
 
@@ -150,7 +150,7 @@ namespace CoffeeShoppingPlanner
                 File.Delete(fileName);
             }
             
-            LoadCoffeeListSum(names, paid, count, date);
+            LoadCoffeeSumList(names, paid, count, date);
             CalculateNextBuyer();
         }
 
@@ -185,7 +185,7 @@ namespace CoffeeShoppingPlanner
 
             CoffeeList.Items.Add(newEntry);
 
-            LoadCoffeeListSum(names, paid, count, date);
+            LoadCoffeeSumList(names, paid, count, date);
             CalculateNextBuyer();
         }
         
@@ -208,7 +208,7 @@ namespace CoffeeShoppingPlanner
 
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
 
-            LoadCoffeeListSum(names, paid, count, date);
+            LoadCoffeeSumList(names, paid, count, date);
             CalculateNextBuyer();
         }
         
@@ -226,10 +226,10 @@ namespace CoffeeShoppingPlanner
 
             int indexOfSelectedItem = CoffeeList.Items.IndexOf(CoffeeList.SelectedItem);
 
-            names[indexOfSelectedItem] = NameTB.Text;
-            paid[indexOfSelectedItem] = PaidTB.Text;
-            count[indexOfSelectedItem] = CountTB.Text;
-            date[indexOfSelectedItem] = DateTB.Text;
+            names[indexOfSelectedItem] = NameTB.Text.Trim();
+            paid[indexOfSelectedItem] = PaidTB.Text.Trim().Replace(".", ",");
+            count[indexOfSelectedItem] = CountTB.Text.Trim();
+            date[indexOfSelectedItem] = DateTB.Text.Trim();
             CoffeeList.Items.Clear();
             
             for (int i = 0; i < names.Count; i++)
@@ -244,7 +244,7 @@ namespace CoffeeShoppingPlanner
             }
             File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
 
-            LoadCoffeeListSum(names, paid, count, date);
+            LoadCoffeeSumList(names, paid, count, date);
             CalculateNextBuyer();
         }
         // This Codes makes it so that you can only input numbers into Paid and Count
@@ -263,6 +263,13 @@ namespace CoffeeShoppingPlanner
             string str = CountTB.Text;
             int len = CountTB.Text.Length;
         }
+
+        private void PaidTB_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string str = PaidTB.Text;
+            int len = PaidTB.Text.Length;
+        }
+
         private bool ErrorMessages()
         {
             //Error messages based on the situation
