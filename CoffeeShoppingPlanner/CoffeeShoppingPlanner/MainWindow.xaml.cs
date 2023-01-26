@@ -126,23 +126,30 @@ namespace CoffeeShoppingPlanner
             //Splits the contents of data.txt into lists so they can be used as needed
             string[] fileContents = File.ReadAllLines(@fileName);
 
-            names = fileContents[0].Split(';').ToList();
-            paid = fileContents[1].Split(';').ToList();
-            count = fileContents[2].Split(';').ToList();
-            date = fileContents[3].Split(';').ToList();
-
-            //Loads the list
-            for (int i = 0; i < names.Count; i++)
+            try
             {
-                Coffee loadEntry = new Coffee();
-                loadEntry.name = names[i];
-                loadEntry.paid = paid[i] + "€";
-                loadEntry.count = count[i];
-                loadEntry.date = date[i];
+                names = fileContents[0].Split(';').ToList();
+                paid = fileContents[1].Split(';').ToList();
+                count = fileContents[2].Split(';').ToList();
+                date = fileContents[3].Split(';').ToList();
 
-                CoffeeList.Items.Add(loadEntry);
+                //Loads the list
+                for (int i = 0; i < names.Count; i++)
+                {
+                    Coffee loadEntry = new Coffee();
+                    loadEntry.name = names[i];
+                    loadEntry.paid = paid[i] + "€";
+                    loadEntry.count = count[i];
+                    loadEntry.date = date[i];
+
+                    CoffeeList.Items.Add(loadEntry);
+                }
             }
-
+            catch
+            {
+                File.Delete(fileName);
+            }
+            
             LoadCoffeeListSum(names, paid, count, date);
             CalculateNextBuyer();
         }
