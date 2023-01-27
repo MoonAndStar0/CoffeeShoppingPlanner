@@ -7,11 +7,10 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Who has to pay for Coffee next?" Background = "#613512" 
+        Title="Who has to pay for Coffee next?" Background = "#613512"
         Height = "900" Width = "1500" MinHeight="900" MinWidth="1500"
         Icon="images/coffeeIcon.ico">
     <Window.Resources>
-        
         <Style TargetType="{x:Type DatePicker}">
             <Style.Resources>
                 <Style TargetType="DatePickerTextBox">
@@ -20,45 +19,46 @@
                 </Style>
             </Style.Resources>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#794d2f"/>
+            <Setter Property="Background" Value="#794D2F"/>
         </Style>
-        
         <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="#794d2f"/>
+            <Setter Property="Background" Value="#794D2F"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="20"/>
         </Style>
-
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#794D2F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"/> 
+            <ColumnDefinition Width="30*"/>
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-
         <DockPanel >
-        <TextBlock Text="Alle Einträge:" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" FontSize="30"/>
-            <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f" IsReadOnly="true" SelectionMode="Single">
-
+            <TextBlock Text="Alle Einträge:" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" FontSize="30"/>
+            <DataGrid x:Name = "CoffeeList" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794D2F" IsReadOnly="true" SelectionMode="Single">
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <EventSetter Event= "MouseDoubleClick" Handler="CoffeeListDoubleClick"/>
                     </Style>
                 </DataGrid.CellStyle>
-                
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
-                    <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
-                    <DataGridTextColumn Header="Anzahl" Binding = "{Binding count}"  Width = "*"/>
-                    <DataGridTextColumn Header="Datum" Binding = "{Binding date}"  Width = "*"/>
+                    <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Bezahlt" Binding = "{Binding paid}"  Width = "*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Anzahl" Binding = "{Binding count}"  Width = "*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Datum" Binding = "{Binding date}"  Width = "*" CanUserSort="False"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -69,46 +69,40 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="90"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
-
             <Image x:Name="coffeeImage" Margin="25" Source="images/coffeeImage.png"/>
-
             <TextBlock Text="Name:" Margin="10,5,100,5" Grid.Row="1"/>
             <ComboBox x:Name="NameTB" Height="40" Margin="100 5 100 5" IsEditable="True"
             FontSize="20" SelectionChanged="NameDropDownSelectionChanged" Grid.Row="1"/>
-
             <TextBlock Text="Bezahlt:" Margin="10,5,100,5" Grid.Row="2"/>
             <TextBox x:Name = "PaidTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="2"
             PreviewTextInput= "CountTB_PreviewTextInput" SelectionChanged="PaidTB_SelectionChanged" Text="4,70"/>
             <TextBlock Text="€" FontSize="25" HorizontalAlignment="Right" Margin="100,3,80,5" Grid.Row="2"/>
-
             <TextBlock Text="Anzahl:" Margin="10,5,100,5" Grid.Row="3"/>
             <TextBox x:Name = "CountTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="3"
             PreviewTextInput="CountTB_PreviewTextInput" SelectionChanged="CountTB_SelectionChanged" Text="1"/>
-
             <TextBlock Text="Datum:" Margin="10,5,100,5" Grid.Row="4"/>
             <DatePicker x:Name = "DateTB" FontSize="20" BorderThickness="0"  Margin = "100,5,100,5" Grid.Row="4" Focusable="False" SelectedDate="{x:Static sys:DateTime.Now}"/>
-
-            <UniformGrid Grid.Row="5" Columns="3" Margin="50 5">
-                <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" BorderThickness="0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
-                <Button x:Name = "DeleteButton" Click = "DeleteButton_Clicked" Content = "Löschen" BorderThickness="0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White" Margin="10,0,10,0"/>
-                <Button x:Name = "EditButton" Click = "EditButton_Clicked" Content = "Ersetzen" BorderThickness="0" FontWeight="Bold" IsDefault="True" Background="#794d2f" Foreground="White"/>
+            <UniformGrid Rows="2" Grid.Row="5" Columns="2" Margin="50 5">
+                <Button x:Name = "Button" Click = "Button_Clicked" Content = "Eintrag hinzufügen" IsDefault="True"/>
+                <Button x:Name = "DeleteButton" Click = "DeleteButton_Clicked" Content = "Löschen"/>
+                <Button x:Name = "EditButton" Click = "EditButton_Clicked" Content = "Ersetzen"/>
+                <Button x:Name = "FlagButton" Click = "FlagButton_Clicked" Content = "Flag"/>
             </UniformGrid>
-
             <TextBlock Text="Die Person die als nächstes kaufen muss:" Grid.Row="6" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock x:Name="nextBuyerName" Text="Kein Eintrag" Grid.Row="7" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Grid>
         <DockPanel Grid.Column="2">
             <TextBlock Text="Beiträge jeder Person:" HorizontalAlignment="Center" Margin="10" DockPanel.Dock="Top" FontSize="30"/>
-            <DataGrid x:Name="CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794d2f" IsReadOnly="true">
+            <DataGrid x:Name="CoffeeListSum" Margin="10" HorizontalScrollBarVisibility="Hidden" BorderThickness="0" Background="#794D2F" IsReadOnly="true">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*"/>
-                    <DataGridTextColumn Header="Gesamt Bezahlt" Binding = "{Binding paid}"  Width = "*"/>
-                    <DataGridTextColumn Header="Gesamte Anzahl" Binding = "{Binding count}"  Width = "*"/>
-                    <DataGridTextColumn Header="Neustes Datum" Binding = "{Binding date}"  Width = "*"/>
+                    <DataGridTextColumn Header="Name" Binding = "{Binding name}" Width = "*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Gesamt Bezahlt" Binding = "{Binding paid}"  Width = "*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Gesamte Anzahl" Binding = "{Binding count}"  Width = "*" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Neustes Datum" Binding = "{Binding date}"  Width = "*" CanUserSort="False"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
