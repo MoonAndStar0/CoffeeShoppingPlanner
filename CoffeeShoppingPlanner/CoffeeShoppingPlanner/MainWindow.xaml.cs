@@ -100,9 +100,11 @@ namespace CoffeeShoppingPlanner
                 }
             }
 
+            NameDropDown.Items.Clear();
             foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
                 WriteEntry(coffee.Value.name, coffee.Value.paid + "€", coffee.Value.count, coffee.Value.date, CoffeeListSum);
+                NameDropDown.Items.Add(coffee.Value.name);
             }
 
             return sumDictionary;
@@ -273,15 +275,19 @@ namespace CoffeeShoppingPlanner
             int len = PaidTB.Text.Length;
         }
 
+        private void NameDropDownSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if(NameDropDown.SelectedItem == null)
+            {
+                return;
+            }
+
+            NameTB.Text = NameDropDown.SelectedItem.ToString();
+        }
+
         public void CoffeeListDoubleClick(object sender, RoutedEventArgs e)
         {
             var selectedItem = CoffeeList.SelectedItem;
-
-            if(selectedItem == null) 
-            {
-                MessageBox.Show("Nothing is selected SOMEHOW??????????");
-                return;
-            }
 
             int indexOfSelectedItem = CoffeeList.Items.IndexOf(selectedItem);
 

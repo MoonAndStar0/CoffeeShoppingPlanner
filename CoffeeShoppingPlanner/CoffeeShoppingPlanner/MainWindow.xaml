@@ -76,6 +76,8 @@
 
             <Image x:Name="coffeeImage" Margin="25" Source="images/coffeeImage.png"/>
 
+            <ComboBox x:Name="NameDropDown" Height="40" Margin="100 5 100 5" VerticalAlignment="Bottom" FontSize="20" SelectionChanged="NameDropDownSelectionChanged"/>
+
             <TextBlock Text="Name:" Margin="10,5,100,5" Grid.Row="1"/>
             <TextBox x:Name = "NameTB" Margin = "100,5,100,5" TextWrapping = "Wrap" Grid.Row="1" />
 
