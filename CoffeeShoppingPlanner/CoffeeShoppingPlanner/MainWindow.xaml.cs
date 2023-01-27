@@ -315,6 +315,15 @@ namespace CoffeeShoppingPlanner
             NameTB.Text = NameTB.SelectedItem.ToString();
         }
 
+        private void HelpButton_Clicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("Eintrag hinzufügen: Fügt einen Eintrag in die linke Liste hinzu." + nl + nl + 
+                            "Löschen: Löscht einen Eintrag in der linken Liste." + nl + nl +
+                            "Bearbeiten: Bearbeitet einen Eintrag in der linken Liste." + nl + nl +
+                            "Flag: Markiert Einträge in der rechten Liste, sodass sie nicht als nächster Käufer angezeigt werden." + nl + nl +
+                            "Doppelclick auf einen Eintrag in der linken Liste übertragt die Daten in die Eingaben.");
+        }
+
         private static bool IsTextAllowed(string text)
         {
             return rgx.IsMatch(text);
