@@ -147,7 +147,17 @@ namespace CoffeeShoppingPlanner
             }
             catch
             {
-                File.Delete(fileName);
+                string currentTime = DateTime.Now.ToString();
+                string crptdFile = @"error_" + currentTime.Replace('.', '_').Replace(' ', '_').Replace(':', '_') + ".txt";
+                string crptdFileBackup = @"error_backup_" + currentTime.Replace('.', '_').Replace(' ', '_').Replace(':', '_') + ".txt";
+                File.Create(crptdFile).Close();
+                File.Replace(fileName, crptdFile, crptdFileBackup);
+                names.Clear();
+                paid.Clear();
+                count.Clear();
+                date.Clear();
+                CoffeeList.Items.Clear();
+                MessageBox.Show("Es gab einen Fehler mit Ihrer Datei" + nl + "Dateiinhalt in " + crptdFile, "Fehlermeldung");
             }
             
             LoadCoffeeSumList(names, paid, count, date);
