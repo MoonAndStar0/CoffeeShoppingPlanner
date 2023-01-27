@@ -44,16 +44,17 @@ namespace CoffeeShoppingPlanner
             float lowestPaid = float.MaxValue;
             string lowestPaidName = string.Empty;
             DateTime lowestPaidDate = DateTime.MinValue;
+            int indexOfSelectedItem = CoffeeList.Items.IndexOf(CoffeeList.SelectedItem);
 
-            foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
+            foreach (KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
-                if(lowestPaid > float.Parse(coffee.Value.paid))
+                if (lowestPaid > float.Parse(coffee.Value.paid) && !coffee.Value.name.Contains("*"))
                 {
                     lowestPaid = float.Parse(coffee.Value.paid);
                     lowestPaidName = coffee.Key;
                     lowestPaidDate = DateTime.ParseExact(coffee.Value.date, "dd.MM.yyyy", null);
                 }
-                else if(lowestPaid == float.Parse(coffee.Value.paid))
+                else if(lowestPaid == float.Parse(coffee.Value.paid) && !coffee.Value.name.Contains("*"))
                 {
                     if (lowestPaidDate > DateTime.ParseExact(coffee.Value.date, "dd.MM.yyyy", null))
                     {
@@ -101,6 +102,7 @@ namespace CoffeeShoppingPlanner
             }
 
             NameTB.Items.Clear();
+
             foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
                 WriteEntry(coffee.Value.name, coffee.Value.paid + "€", coffee.Value.count, coffee.Value.date, CoffeeListSum);
@@ -252,6 +254,50 @@ namespace CoffeeShoppingPlanner
             LoadCoffeeSumList(names, paid, count, date);
             CalculateNextBuyer();
         }
+
+        private void FlagButton_Clicked(object sender, EventArgs e)
+        {
+            var selectedItem = CoffeeListSum.SelectedItem;
+            if (selectedItem == null)
+            {
+                MessageBox.Show("Kein Eintrag ausgewählt", "Fehlermeldung");
+                return;
+            }
+
+            int indexOfSelectedItem = CoffeeListSum.Items.IndexOf(CoffeeListSum.SelectedItem);
+            string searchName = names[indexOfSelectedItem];
+            if (!searchName.Contains("*"))
+            {
+                for (int i = 0; i < names.Count; i++)
+                { 
+                    if (names[i].Contains(searchName))
+                    {
+                        names[i] = names[i] + "*";
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < names.Count; i++)
+                {
+                    if (names[i].Contains(searchName))
+                    {
+                        names[i] = names[i].Replace("*", "");
+                    }
+                }
+            }
+            CoffeeList.Items.Clear();
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                WriteEntry(names[i], paid[i] + "€", count[i], date[i], CoffeeList);
+            }
+
+            File.WriteAllText(fileName, String.Join(";", names) + nl + String.Join(";", paid) + nl + String.Join(";", count) + nl + String.Join(";", date));
+
+            LoadCoffeeSumList(names, paid, count, date);
+            CalculateNextBuyer();
+        }
         // This Codes makes it so that you can only input numbers into Paid and Count
         private void CountTB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -259,6 +305,16 @@ namespace CoffeeShoppingPlanner
         }
         // allow all digits 0 to 9 plus the dot the comma and the minus sign
         private static readonly Regex rgx = new Regex("[0-9.,]+");
+
+        private void NameDropDownSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (NameTB.SelectedItem == null)
+            {
+                return;
+            }
+            NameTB.Text = NameTB.SelectedItem.ToString();
+        }
+
         private static bool IsTextAllowed(string text)
         {
             return rgx.IsMatch(text);
@@ -275,19 +331,15 @@ namespace CoffeeShoppingPlanner
             int len = PaidTB.Text.Length;
         }
 
-        private void NameDropDownSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            if(NameTB.SelectedItem == null)
-            {
-                return;
-            }
-
-            NameTB.Text = NameTB.SelectedItem.ToString();
-        }
-
         public void CoffeeListDoubleClick(object sender, RoutedEventArgs e)
         {
             var selectedItem = CoffeeList.SelectedItem;
+
+            if(selectedItem == null) 
+            {
+                MessageBox.Show("Nothing is selected SOMEHOW??????????");
+                return;
+            }
 
             int indexOfSelectedItem = CoffeeList.Items.IndexOf(selectedItem);
 
