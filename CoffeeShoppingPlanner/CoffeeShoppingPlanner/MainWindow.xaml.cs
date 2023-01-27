@@ -100,11 +100,11 @@ namespace CoffeeShoppingPlanner
                 }
             }
 
-            NameDropDown.Items.Clear();
+            NameTB.Items.Clear();
             foreach(KeyValuePair<string, Coffee> coffee in sumDictionary)
             {
                 WriteEntry(coffee.Value.name, coffee.Value.paid + "€", coffee.Value.count, coffee.Value.date, CoffeeListSum);
-                NameDropDown.Items.Add(coffee.Value.name);
+                NameTB.Items.Add(coffee.Value.name);
             }
 
             return sumDictionary;
@@ -277,12 +277,12 @@ namespace CoffeeShoppingPlanner
 
         private void NameDropDownSelectionChanged(object sender, RoutedEventArgs e)
         {
-            if(NameDropDown.SelectedItem == null)
+            if(NameTB.SelectedItem == null)
             {
                 return;
             }
 
-            NameTB.Text = NameDropDown.SelectedItem.ToString();
+            NameTB.Text = NameTB.SelectedItem.ToString();
         }
 
         public void CoffeeListDoubleClick(object sender, RoutedEventArgs e)
